@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.a6month.SecondActivity.Companion.keyF
+import com.example.a6month.SecondActivity.Companion.keyR
 import com.example.a6month.databinding.ActivityMainBinding
-@Suppress("DEPRECATED_IDENTITY_EQUALS")
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var launchForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode === RESULT_OK) {
-            val text = result.data?.getStringExtra("result")
+        if (RESULT_OK == result.resultCode) {
+            val text = result.data?.getStringExtra(keyR)
             binding.editText.setText(text)
         }
     }
@@ -24,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             if (binding.editText.text.isNotEmpty()) {
                 val intent = Intent(this, SecondActivity::class.java)
-                intent.putExtra("key.fly", binding.editText.text.toString())
+                intent.putExtra(keyF, binding.editText.text.toString())
                 launchForResult.launch(intent)
             } else {
-                Toast.makeText(this, "This field can not be empty", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.Toast), Toast.LENGTH_LONG).show()
             }
         }
     }

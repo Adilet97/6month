@@ -11,16 +11,20 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val text = intent.getStringExtra("key.fly")
+        val text = intent.getStringExtra(keyF)
         binding.editText.setText(text)
         initListeners()
     }
     private fun initListeners() {
         binding.button.setOnClickListener {
             val intent = Intent()
-            intent.putExtra("result",binding.editText.text.toString())
+            intent.putExtra(keyR,binding.editText.text.toString())
             setResult(RESULT_OK,intent)
             finish()
         }
+    }
+    companion object {
+        var keyF = "keyFly"
+        var keyR = "keyResult"
     }
 }
